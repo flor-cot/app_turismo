@@ -1,4 +1,10 @@
+# Gitignore de Florencia
 *.__pycache__
 *.pyc
+.vscode
+vscode/
+
+
+# Gitignore de Maximiliano
 venv_app_turismo/
 *.pyc
