@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Estos son los destinos de {{provincia}}</h1>
+            <hr class="my-4">
+            <p>Elige el destino que mas te guste.</p>
+        </div>
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">...</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Lugar1</td>
+                <td>Sed sollicitudin dui in eros condimentum, ultrices scelerisque nibh ullamcorper. Aenean vel nisl lorem. Quisque bibendum lectus ut neque iaculis, et porttitor nisl sollicitudin. </td>
+                <td><button type="button" class="btn btn-light">Reservar</button></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Lugar2</td>
+                <td>Sed sollicitudin dui in eros condimentum, ultrices scelerisque nibh ullamcorper. Aenean vel nisl lorem. Quisque bibendum lectus ut neque iaculis, et porttitor nisl sollicitudin. </td>
+                <td><button type="button" class="btn btn-light">Reservar</button></td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Lugar3</td>
+                <td>Sed sollicitudin dui in eros condimentum, ultrices scelerisque nibh ullamcorper. Aenean vel nisl lorem. Quisque bibendum lectus ut neque iaculis, et porttitor nisl sollicitudin. </td>
+                <td><button type="button" class="btn btn-light">Reservar</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>      
+    {% endblock content %}

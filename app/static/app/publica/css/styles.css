@@ -1,4 +1,4 @@
-main {
+.main_login {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,4 +7,21 @@ main {
 }
 .bg-transp {
    background-color: rgba(240, 248, 255, 0.824);
+
 }
+#tarjetas {
+    width: 80vw;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;   
+}
+
+.tarjeta_individual {
+    margin: 0 15px 0 15px;
+    width: 150px;
+}
+
+/*main {
+    margin: 25px 0
+}*/
