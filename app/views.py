@@ -2,11 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-def index(request):
-    return HttpResponse('Este es el index.')
 
-def destinos(request,provincia=""):
-    return render(request,'app/destinos.html',{'provincia': provincia})
+
+def index(request):
     contexto = {
         'hoteles' : (
             {'nombre': 'Dormís Acá',
@@ -33,6 +31,9 @@ def destinos(request,provincia=""):
     }
     return render(request, 'app/index.html', contexto)
 
+
+def destinos(request,provincia=""):
+    return render(request,'app/destinos.html',{'provincia': provincia})
 
 def about(request):
     data = {'hoteles':('hola','chau')}
