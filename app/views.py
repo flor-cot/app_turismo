@@ -5,3 +5,8 @@ from django.urls import reverse
 
 def index(request):
     return HttpResponse('Este es el index.')
+
+
+def about(request):
+    data = {'hoteles':('hola','chau')}
+    return render(request, 'app/about.html', data)
