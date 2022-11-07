@@ -1,12 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from app.models import Provincia
 
 def login(request):
     return render(request,'app/login.html')
 
 def index(request):
-    contexto = {
+    provincias = Provincia.objects.all()
+    hoteles = {
         'hoteles' : (
             {'nombre': 'Dormís Acá',
             'localidad': 'Esquel',
@@ -30,6 +32,7 @@ def index(request):
             'nota': 8.8}
         )
     }
+    contexto = {'provincias': provincias, 'hoteles': hoteles}
     return render(request, 'app/index.html', contexto)
 
 

@@ -23,7 +23,7 @@
     </button>
   </div>
     <div id="tarjetas">
-    {% for hotel in hoteles %}
+    {% for hotel in hoteles.hoteles %}
         <div class="card tarjeta_individual" style="width: 18rem;">
             <img src="{{ hotel.url }}" class="card-img-top fotos" alt="...">
             <div class="card-body">
@@ -32,6 +32,13 @@
             <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
+    {% endfor %}
+    </div>
+    <div>
+    {% for provincia in provincias %}
+    <ul>
+      <li>{{ provincia }}</li>
+    </ul>
     {% endfor %}
     </div>
 {% endblock content %}
