@@ -1,14 +1,46 @@
-.main_login {
+a:link {
+    text-decoration: none;
+  }
+
+/*Registrate*/
+.main_registro {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 100vh;
     background-image: url(../img/paisaje.jpg);
 }
 .bg-transp {
-   background-color: rgba(240, 248, 255, 0.824);
+    background-color: rgba(240, 248, 255, 0.824);
+ }
 
+/*Login*/
+.main_login {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 90vh;
+
+    background-image: url(../img/bg_login.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
 }
+
+.section_login {
+    min-height: 90vh;
+    height: 100%;
+    max-width: 40vw;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+    min-height: 90vh;
+    background-color: rgba(240, 248, 255);
+ }
+
+/*Index*/
 #tarjetas {
     width: 80vw;
     margin: auto;
@@ -21,7 +53,3 @@
     margin: 0 15px 0 15px;
     width: 150px;
 }
-
-/*main {
-    margin: 25px 0
-}*/
