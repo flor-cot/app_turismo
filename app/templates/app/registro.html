@@ -1,19 +1,19 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-      <main class="flex-shrink-0 main_login">
+      <main class="flex-shrink-0 main_registro">
         <!-- Page content-->
-        <section class="section_login">
-              <!-- Login form-->
-                <div class="form-login px-3">
+        <section class="py-5">
+            <div class="container px-5">
+                <!-- Contact form-->
+                <div class="bg-transp rounded-3 py-4">
                     <div class="text-center">
-                        <h1 class="fw-bolder">Ingresa Con Tu Cuenta</h1>
-                        <p class="fw-normal text-muted mb-0">¿Ingresas por primera vez?</p> 
-                        <a class="link-dark" href="{% url 'registro' %}">Registrate</a>
+                        <h1 class="fw-bolder">Crea Tu Cuenta</h1>
+                        <p class="lead fw-normal text-muted mb-0"></p>
                     </div>
                     <div class="row gx-5 justify-content-center">
-                        <div class="col-md-7">
-                            <form action="{% url 'login' %}" method='POST' id="contact-form" name="contact-form" >
+                        <div class="col-md-7 col-xl-6">
+                            <form action="{% url 'registro' %}" method='POST' id="contact-form" name="contact-form" >
                                 {% csrf_token %}
 
                                 {% for message in messages %}
@@ -23,9 +23,9 @@
                                 {% endfor %}
               
                      
-                                    {% for field in login_form %}
-                                        <div >
-                                            <div class="">
+                                    {% for field in registro_form %}
+                                        <div class="col-md-12">
+                                            <div class="md-form mb-0">
                                                 <label for="">{{field.label}}</label>
                                                 {{field}}
                                             </div>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-            
+            </div>
         </section>
     </main>
 

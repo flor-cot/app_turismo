@@ -1,8 +1,12 @@
-.main_login {
+a:link {
+    text-decoration: none;
+  }
+
+/*Registrate*/
+.main_registro {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 100vh;
     background-image: url(../img/paisaje.jpg);
 }
 .bg-transp {
@@ -22,6 +26,4 @@
     width: 150px;
 }
 
-/*main {
-    margin: 25px 0
-}*/
+
