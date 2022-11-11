@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Provincia(models.Model):
@@ -15,6 +16,9 @@ class Ciudad(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+    class Meta:
+        verbose_name_plural = "Ciudades"
 
 
 class Hotel(models.Model):
@@ -28,3 +32,16 @@ class Hotel(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+    class Meta:
+        verbose_name_plural = "Hoteles"
+
+# Para los usuarios utilizaremos el modelo User que viene incorporado en el módulo auth
+# Sus campos son: username, first_name, last_name, password, email
+
+class Comentario(models.Model):
+    mensaje = models.TextField(null=True, verbose_name='mensaje')
+    likes = models.IntegerField(default=0,verbose_name='Comentario Likes')
+    fecha = models.DateField(auto_now_add=True, verbose_name='Fecha')
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)

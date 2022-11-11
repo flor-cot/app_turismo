@@ -23,13 +23,15 @@
     </button>
   </div>
     <div id="tarjetas">
-    {% for hotel in hoteles.hoteles %}
+    {% for hotel in hoteles %}
         <div class="card tarjeta_individual" style="width: 18rem;">
-            <img src="{{ hotel.url }}" class="card-img-top fotos" alt="...">
+            <a href="{% url 'hotel_detalle' hotel.id %}">  
+                <img src="{{ hotel.url }}" class="card-img-top fotos" alt="...">
+            </a>
             <div class="card-body">
             <h5 class="card-title">{{ hotel.nombre }}</h5>
-            <p class="card-text">Hotel ubicado en {{hotel.localidad }}, tiene un puntaje de {{ hotel.nota }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p class="card-text">Hotel ubicado en {{hotel.ciudad }}, tiene un puntaje de {{ hotel.puntuacion }}</p>
+            <a href="{% url 'hotel_detalle' hotel.id %}" class="btn btn-primary">Visitar el sitio</a>
             </div>
         </div>
     {% endfor %}

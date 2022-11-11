@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<a href="{% url 'index' %}"><button type="button" class="btn btn-primary">Volver al Home</button></a>
+
+<div class="row" style="display:flex">
+    <div id="tarjetas" >
+        <div class="card tarjeta_individual col-4" >
+            <img src="{{ hotel.url }}" class="card-img-top fotos" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">{{ hotel.nombre }}</h5>
+            <p class="card-text">{{ hotel.descripcion }}</p>
+            </div>
+        </div>
+        <div class="card tarjeta_individual col-7" >
+            {% for comentario in comentarios %}
+            <div class="card-body">
+                <h5 class="card-title">{{ comentario.mensaje }}</h5>
+                <p class="card-text">{{ comentario.usuario }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
