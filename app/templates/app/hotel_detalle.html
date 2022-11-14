@@ -1,7 +1,9 @@
 {% extends 'app/base.html' %}
+{% block title %}Hotel {{hotel.nombre}}{% endblock title %}
 
 {% block content %}
-<a href="{% url 'index' %}"><button type="button" class="btn btn-primary">Volver al Home</button></a>
+<main>
+    <a href="{% url 'index' %}"><button type="button" class="btn btn-primary">Volver al Home</button></a>
 
 <div class="row" style="display:flex">
     <div id="tarjetas" >
@@ -22,5 +24,6 @@
         </div>
     </div>
 </div>
+</main>
 
-{% endblock %}
+{% endblock content %}

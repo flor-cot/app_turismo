@@ -1,0 +1,7 @@
+{% if provincias %}
+<ul class="dropdown-menu">
+    {% for provincia in provincias %}
+      <li><a class="dropdown-item" href="{% url 'destinos' provincia.id %}">{{provincia.nombre}}</a></li>
+    {% endfor %}    
+</ul>
+{% endif %}

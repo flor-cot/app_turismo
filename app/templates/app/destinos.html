@@ -9,14 +9,14 @@
     </div> 
     <br>    
     <div id="tarjetas">
-        {% for destino in destinos %}
+        {% for ciudad in ciudades %}
             <div class="card tarjeta_individual" style="width: 18rem;">
-                <img src="{{ destino.url }}" class="card-img-top fotos rounded" style="filter: brightness(50%);" alt="...">
+                <img src="{{ ciudad.url }}" class="card-img-top fotos rounded" style="filter: brightness(50%);" alt="...">
                 <div style="position:absolute; top:50%; left: 50%; transform: translate(-50%, -50%); color: white">
-                    <a href="{% url 'undestino' destino.id %}" class="btn btn-outline-light">{{destino.nombre}}</a>
+                    <a href="{% url 'undestino' ciudad.id %}" class="btn btn-outline-light">{{ciudad.nombre}}</a>
                 </div>
             </div>
-        {% endfor %} 
+        {% endfor %}
     </div>   
     <br>    
 {% endblock content %}
