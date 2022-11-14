@@ -1,4 +1,5 @@
 
+import variables_personales as vp
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -66,8 +67,12 @@ WSGI_APPLICATION = 'turismo_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': vp.Name,
+        'USER': 'postgres',
+        'PASSWORD': vp.Password,
+        'HOST': 'localhost',
+        'PORT': vp.Puerto
     }
 }
 

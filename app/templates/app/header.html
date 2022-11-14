@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #366198;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="./"><img width="100px" src="./static/app/publica/img/logo.png" alt="visita argentina"></a>
+      <a class="navbar-brand" href="{% url 'index' %}"><img width="100px" src="./static/app/publica/img/logo.png" alt="visita argentina"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,9 +20,9 @@
               Provincias
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'destinos' 'Chubut' %}">Chubut</a></li>
-              <li><a class="dropdown-item" href="{% url 'destinos' 'Cordoba' %}">Córdoba</a></li>
-              <li><a class="dropdown-item" href="{% url 'destinos' 'CABA' %}">CABA</a></li>
+              {% for provincia in provincias %}
+                <li><a class="dropdown-item" href="{% url 'destinos' provincia.nombre %}">{{provincia.nombre}}</a></li>
+              {% endfor %}    
             </ul>
           </li>
         </ul>
