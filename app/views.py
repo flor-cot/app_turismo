@@ -14,7 +14,7 @@ from django.contrib import messages
 
 def login(request):
     
-     if(request.method == 'POST'):
+    if(request.method == 'POST'):
 
         login_form = LoginForm(request.POST)
         if(login_form.is_valid()):
