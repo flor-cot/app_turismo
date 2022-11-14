@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #366198;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="./"><img width="100px" src="./static/app/publica/img/logo.png" alt="visita argentina"></a>
+      <a class="navbar-brand" href="{% url 'index' %}"><img width="100px" src="./static/app/publica/img/logo.png" alt="visita argentina"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -25,10 +25,14 @@
               <li><a class="dropdown-item" href="{% url 'destinos' 'CABA' %}">CABA</a></li>
             </ul>
           </li>
-        </ul>
+        </ul> 
+ 
+        <span  style="color:white;margin-right:10px">Hola {{request.user}} </span>
+        <span ><a  style="color:white;margin-right:10px"  href="{% url 'logout' %}">Cerrar Sesión</a></span>
+
         <form class="d-flex" role="search" >
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-outline-success btn-light" type="submit">Search</button>
         </form>
       </div>
     </div>
