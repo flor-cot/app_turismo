@@ -8,3 +8,4 @@ vscode/
 # Gitignore de Maximiliano
 venv_app_turismo/
 *.pyc
+variables_personales.py
