@@ -3,11 +3,20 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Provincia(models.Model):
-    nombre=models.CharField(max_length=100, verbose_name='Nombre')
-
+    nombre = models.CharField(max_length=100, verbose_name='Nombre')
     def __str__(self):
         return self.nombre
-
+    
+class Destino(models.Model):
+    nombre = models.CharField(max_length=200, verbose_name='Nombre')
+    descripcion = models.CharField(max_length=1000, verbose_name='Descripcion')
+    url=models.URLField(null=True, max_length=255)
+    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nombre
+        return self.descripcion
+        
+    
 class Ciudad(models.Model):
     nombre=models.CharField(max_length=100, verbose_name='Nombre')
     provincia=models.ForeignKey(Provincia, on_delete=models.CASCADE)

@@ -71,6 +71,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': vp.Name,
         'NAME': 'app_turismo',
         'USER': 'postgres',
         'PASSWORD': vp.password,
