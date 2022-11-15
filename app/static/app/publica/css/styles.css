@@ -1,13 +1,19 @@
 a:link {
     text-decoration: none;
   }
+:root {
+    --margin: 2%;
+}
+body{
+    overflow-x: hidden;
+}
 
 /*Registrate*/
 .main_registro {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url(../img/paisaje.jpg);
+    background-image: url(../img/registro.jpg);
 }
 .bg-transp {
    background-color: rgba(240, 248, 255, 0.824);
@@ -26,4 +32,72 @@ a:link {
     width: 150px;
 }
 
+/*Login*/
+.main_login {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 90vh;
 
+    background-image: url(../img/bg_login.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.section_login {
+    min-height: 90vh;
+    height: 100%;
+    max-width: 40vw;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+    min-height: 90vh;
+    background-color: rgba(240, 248, 255);
+ }
+
+/*Index*/
+.tarjetas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;   
+
+    margin-top:var(--margin);
+    margin-bottom:var(--margin)
+}
+
+.tarjeta_individual {
+    margin: 0 15px 0 15px;
+    width: 150px;
+}
+.provincias {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;   
+
+    margin-top:var(--margin)
+}
+.provincias button {
+    margin: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-provincias{
+    background-color: #366198;
+    padding: var(--margin);
+}
+
+/*Footer*/
+footer {
+    background-color: #366198;
+    color: white;
+    text-align: center;
+
+    padding-top: var(--margin);
+    padding-bottom: var(--margin);
+}
