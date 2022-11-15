@@ -48,6 +48,7 @@ def iniciar_sesion(request):
 
         return render(request,'app/login.html')
 
+@login_required
 def cerrar_sesion(request):
 	logout(request)
 	return redirect('login')
@@ -85,7 +86,7 @@ def index(request):
     contexto = {'hoteles': hoteles}
     return render(request, 'app/index.html', contexto)
 
-
+@login_required
 def destinos(request,id_provincia=""):
     ciudades = Ciudad.objects.filter(provincia=id_provincia)
     # destinos = Destino.objects.filter(provincia=id_provincia)

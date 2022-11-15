@@ -1,7 +1,7 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  {% comment %} <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner" style="width:100vw; margin: auto">
         <div class="carousel-item active">
           <img src="https://www.sunfish.cl/img/piscina/Hotel_sunfish_iquique.jpg" class="d-block w-100" alt="..." style="max-height:60vh; aspect-ratio: 18/6; object-fit: cover;">
@@ -21,20 +21,19 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
-  </div>
+  </div> {% endcomment %}
 
-  <div class="provincias container">
+  {% comment %} <div class="provincias container">
     {% for provincia in provincias %}
-        {% comment %} <a href="{% url 'destinos' 'provincia' %}" class=" btn-provincias badge badge-info">{{ provincia }}</a> {% endcomment %}
+        <a href="{% url 'destinos' 'provincia' %}" class=" btn-provincias badge badge-info">{{ provincia }}</a>
         <button href="{% url 'destinos' 'provincia' %}" type="button" class="btn btn-info">
           {{ provincia }} <span class="badge badge-light">10</span>
           <span class="sr-only">unread messages</span>
         </button>
     {% endfor %}
-    
-  </div>
+  </div> {% endcomment %}
 
-  <div class="tarjetas container">
+  <div id="tarjetas" class="tarjetas container">
       {% for hotel in hoteles %}
           <div class="card tarjeta_individual" style="width: 18rem;">
               <a href="{% url 'hotel_detalle' hotel.id %}">  
