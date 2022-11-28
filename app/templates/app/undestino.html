@@ -26,14 +26,16 @@
     <div class="container">
       <div class="row">
         {% for hotel in hoteles %}
-        <div class="col">
-          <img src="{{ hotel.url }}" class="card-img-top rounded" alt="...">
-        </div>
-        <div class="col">    
-          <h1 class="display-4">{{hotel.nombre}}</h1>
-          <hr class="my-4">      
-          <p>{{hotel.descripcion}}</p>
-        </div>
+          <div class="col">
+            <a href="{% url 'hotel_detalle' hotel.id %}">
+            <img src="{{ hotel.url }}" class="card-img-top rounded" alt="...">
+          </a>
+          </div>
+          <div class="col">    
+            <h1 class="display-4">{{hotel.nombre}}</h1>
+            <hr class="my-4">      
+            <p>{{hotel.descripcion}}</p>
+          </div>
         {% endfor %}
       </div>
     </div> 

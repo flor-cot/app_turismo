@@ -9,9 +9,12 @@ class HotelAdmin(admin.ModelAdmin):
 class HotelInline(admin.StackedInline):
     model = Hotel
 
+class AtraccionInline(admin.StackedInline):
+    model = Atraccion
+
 class CiudadAdmin(admin.ModelAdmin):
     fields = ['nombre', 'url']
-    inlines = [HotelInline]
+    inlines = [HotelInline, AtraccionInline]
     list_display = ('nombre', 'provincia',)
 
 class CiudadInline(admin.StackedInline):

@@ -86,7 +86,7 @@ def index(request):
     contexto = {'hoteles': hoteles}
     return render(request, 'app/index.html', contexto)
 
-@login_required
+
 def destinos(request,id_provincia=""):
     ciudades = Ciudad.objects.filter(provincia=id_provincia)
     # destinos = Destino.objects.filter(provincia=id_provincia)
@@ -99,10 +99,11 @@ def about(request):
     data = {'hoteles':('hola','chau')}
     return render(request, 'app/about.html', data)
 
+@login_required
 def undestino(request,id_destino=""):
     atracciones = Atraccion.objects.filter(ciudad=id_destino)
     hoteles = Hotel.objects.filter(ciudad=id_destino)
-    contexto = {'atraccion': atracciones, 'hoteles': hoteles, 'ciudad': Ciudad.objects.get(pk=id_destino)}
+    contexto = {'atracciones': atracciones, 'hoteles': hoteles, 'ciudad': Ciudad.objects.get(pk=id_destino)}
     return render(request, 'app/undestino.html', contexto)
 
 def hotel_detalle(request, id_hotel):
