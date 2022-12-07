@@ -14,13 +14,47 @@
             <p class="card-text">{{ hotel.descripcion }}</p>
             </div>
         </div>
-        <div class="card tarjeta_individual col-7" >
-            {% for comentario in comentarios %}
-            <div class="card-body">
-                <h5 class="card-title">{{ comentario.mensaje }}</h5>
-                <p class="card-text">{{ comentario.usuario }}</p>
+        <div class="tarjeta_individual col-7" >
+            <div class="row">
+                {% for comentario in comentarios %}
+                <div class="card">
+                    <div class="row">
+                        <p class="card-text col-6">{{ comentario.usuario }}</p>
+                        <p class="card-text col-4">{{ comentario.fecha }}</p>
+                        <p class="card-text col-1">{{ comentario.likes }}</p>
+                        {% if user.username == comentario.usuario.username %}
+                            <a href="{% url 'eliminar_comentario' comentario.id hotel.id %}" title="Eliminar" class="btn btn-danger col-1"><i class="fa-sharp fa-solid fa-trash"></i></a>
+                        {% else %}
+                            <a href="{% url 'gustar_comentario' comentario.id hotel.id %}" title="me_gusta" class="btn col-1"><i class="fa-sharp fa-solid fa-heart"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="row card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ comentario.mensaje }}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="card">
+                    <div class="row">
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}  [<a href='{% url 'login' %}'>Ingresar</a>]
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form action="{% url 'agregar_comentario' hotel.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <textarea name="comentario_nuevo" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="Haga su comentario!"></textarea>
+                                <button type="submit" class="btn btn-primary mb-3">enviar comentario</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            {% endfor %}
         </div>
     </div>
 </div>
