@@ -88,7 +88,7 @@ class RegistroForm(UserCreationForm):
             max_length=50,
             help_text=('Requerido!'),
              validators=[validar_nombre_usuario],
-            error_messages={'unique': ("Ya existe!")},
+            error_messages={'unique': ("Ya existe!"),'required':("El campo no puede estar vacío.")},
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
         first_name = forms.CharField(
@@ -96,6 +96,7 @@ class RegistroForm(UserCreationForm):
             max_length=50,
             help_text=('Requerido!'),
             validators=[solo_caracteres],
+            error_messages={'required':("El campo no puede estar vacío.")},
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
         last_name = forms.CharField(
@@ -103,16 +104,20 @@ class RegistroForm(UserCreationForm):
             max_length=50,
             help_text=('Requerido!'),
             validators=[solo_caracteres],
+            error_messages={'required':("El campo no puede estar vacío.")},
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
-        email = forms.EmailField(max_length=50, help_text='Requerido! Inform a valid email address.',
+        email = forms.EmailField(max_length=50, help_text='Requerido!',
+            error_messages={'required':("El campo no puede estar vacío.")},
             widget=(forms.TextInput(attrs={'class': 'form-control'})))
         password1 = forms.CharField(
             label=('Contraseña'),
             validators=[validar_contrasena],
+            error_messages={'required':("El campo no puede estar vacío.")},
             widget=(forms.PasswordInput(attrs={'class': 'form-control'}))
             )
-        password2 = forms.CharField(label=('Ingrese de nuevo la contraseña'), 
+        password2 = forms.CharField(label=('Ingrese de nuevo la contraseña'),
+            error_messages={'required':("El campo no puede estar vacío.")}, 
             widget=forms.PasswordInput(attrs={'class': 'form-control'}),
             help_text=('Misma contraseña!'))
         class Meta:

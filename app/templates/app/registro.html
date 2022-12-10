@@ -37,7 +37,7 @@
                                     <button class="btn btn-dark" type="submit">Enviar</button>
                                 </div>
                             </form> {% endcomment %}
-                            <form action="" method="POST" id="contact-form" name="contact-form" class="col-md-5">
+                            <form action="" method="POST" id="contact-form" name="contact-form" class="col-md-5" novalidate>
                                 {% csrf_token %}
                                 {% for message in messages %}
                                 <div class="alert alert-{{ message.tags }}" role="alert">

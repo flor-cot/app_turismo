@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from app.models import Provincia, Hotel, Comentario, Atraccion, Ciudad
 from django.template import loader
+from django.contrib.postgres.search import SearchQuery, SearchVector
 
 from app.forms import RegistroForm
 
@@ -13,6 +14,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.decorators import login_required
+
+from django.db.models import Q
 
 
 
@@ -79,11 +82,11 @@ def registro(request):
             return render(request,'app/registro.html',
                         {'registro_form':registro_form})
 
-# @login_required(login_url='login')     #Decorador para restringir acceso a suarios NO logueados
 def index(request):
     hoteles = Hotel.objects.order_by('-puntuacion').all()
+    provincias = Provincia.objects.all()
     
-    contexto = {'hoteles': hoteles}
+    contexto = {'hoteles': hoteles , 'provincias': provincias}
     return render(request, 'app/index.html', contexto)
 
 @login_required
@@ -102,7 +105,7 @@ def about(request):
 def undestino(request,id_destino=""):
     atracciones = Atraccion.objects.filter(ciudad=id_destino)
     hoteles = Hotel.objects.filter(ciudad=id_destino)
-    contexto = {'atraccion': atracciones, 'hoteles': hoteles, 'ciudad': Ciudad.objects.get(pk=id_destino)}
+    contexto = {'atraccion': atracciones, 'hoteles': hoteles} #, 'ciudad': Ciudad.objects.get(pk=id_destino)}
     return render(request, 'app/undestino.html', contexto)
 
 def hotel_detalle(request, id_hotel):
@@ -110,3 +113,26 @@ def hotel_detalle(request, id_hotel):
     comentarios = Comentario.objects.filter(hotel=id_hotel)
 
     return render(request, 'app/hotel_detalle.html', {'hotel': hotel, 'comentarios': comentarios})
+
+
+def busqueda(request):
+    q = request.GET.get('q')
+
+    if q:
+       # ciudades = Ciudad.objects.filter(nombre__search=q)
+        ciudades = Ciudad.objects.filter(
+            Q(nombre__icontains=q) | 
+            Q(provincia__nombre__icontains=q) )
+
+        atracciones = Atraccion.objects.filter(
+            Q(nombre__icontains=q) | 
+            Q(ciudad__nombre__icontains=q) )  
+        hoteles = Hotel.objects.filter(
+            Q(nombre__icontains=q) | 
+            Q(ciudad__nombre__icontains=q) )   
+
+    else:
+        None
+    # 
+    contexto = {'ciudades':ciudades, 'atracciones':atracciones, 'hoteles':hoteles, 'q':q}
+    return render(request, 'app/busqueda.html', contexto)
