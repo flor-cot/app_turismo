@@ -32,6 +32,23 @@
         </button>
     {% endfor %}
   </div> {% endcomment %}
+  <div class="hero-section">
+    <div class="hero-section-text">
+      <h1 class="h1-title">Encuentra tu Próximo Destino</h1>
+    </div>
+
+    <form action="{%url 'busqueda' %}" method="get"  class="d-flex" >
+      <div class="wrap">
+       <div class="search">
+         <input type="text" name="q" class="searchTerm" placeholder="Busca ciudades, hoteles o atracciones">
+         <button type="submit" class="searchButton">
+           <i class="fa fa-search"></i>
+         </button>
+       </div>
+     </div>
+    </form>
+  </div>
+
   <div class="p-4 p-md-5 mb-4 rounded text-bg-dark index-random">
     <h1 class="display-4 fst-verdana" style="background-image: linear-gradient(45deg, red, blue); -webkit-background-clip: text; background-clip: text; color:transparent;">El destino del día!</h1>
     <div class="row">
@@ -44,18 +61,6 @@
         <img src="{{hotel_random.url}}" alt="Foto del Hotel" style="width: 80%; position: relative; left: 20%; ">
       </div>
     </div>
-  </div>
-
-    <form action="{%url 'busqueda' %}" method="get"  class="d-flex" >
-      <div class="wrap">
-       <div class="search">
-         <input type="text" name="q" class="searchTerm" placeholder="Busca ciudades, hoteles o atracciones">
-         <button type="submit" class="searchButton">
-           <i class="fa fa-search"></i>
-         </button>
-       </div>
-     </div>
-    </form>
   </div>
 
   <div class="container overflow-hidden">
