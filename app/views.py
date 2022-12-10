@@ -1,7 +1,7 @@
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from app.models import Provincia, Hotel, Comentario, Atraccion, Ciudad
+from app.models import Provincia, Hotel, Comentario, Atraccion, Ciudad, ComentarioGustado
 from django.template import loader
 
 from app.forms import RegistroForm
@@ -15,6 +15,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from datetime import datetime
+
+import random
 
 
 
@@ -63,9 +65,10 @@ def registro(request):
 
 # @login_required(login_url='login')     #Decorador para restringir acceso a suarios NO logueados
 def index(request):
-    hoteles = Hotel.objects.order_by('-puntuacion').all()
-    
-    contexto = {'hoteles': hoteles}
+    hoteles_query = Hotel.objects.order_by('-puntuacion').all()
+    hoteles = hoteles_query[:4]
+    hotel_random = random.choice(range(1,len(hoteles_query)+1))
+    contexto = {'hoteles': hoteles, 'hotel_random': Hotel.objects.get(pk=hotel_random)}
     return render(request, 'app/index.html', contexto)
 
 @login_required
@@ -84,7 +87,7 @@ def about(request):
 def undestino(request,id_destino=""):
     atracciones = Atraccion.objects.filter(ciudad=id_destino)
     hoteles = Hotel.objects.filter(ciudad=id_destino)
-    contexto = {'atraccion': atracciones, 'hoteles': hoteles, 'ciudad': Ciudad.objects.get(pk=id_destino)}
+    contexto = {'atracciones': atracciones, 'hoteles': hoteles, 'ciudad': Ciudad.objects.get(pk=id_destino)}
     return render(request, 'app/undestino.html', contexto)
 
 
@@ -119,9 +122,29 @@ def eliminar_comentario(request, id_comentario, id_hotel):
 
 def gustar_comentario(request, id_comentario, id_hotel):
     if request.user.is_authenticated:
-        comentario_gustado = Comentario.objects.get(id=id_comentario)
-        comentario_gustado.likes = comentario_gustado.likes + 1
-        comentario_gustado.save()
+        usuario_id = request.user.id
+
+        # traemos el comentario a gustar
+        comentario = Comentario.objects.get(id=id_comentario)
+
+        try:
+            # traemos el registro de la tabla intermedia ComentarioGustado para ese comentario y usuario si existe
+            comentario_estado = ComentarioGustado.objects.get(comentario_id=id_comentario, usuario_id=usuario_id)
+            # Si ya le gustaba le deja de gustar y viceversa
+            if comentario_estado.estado == True:
+                comentario.likes = comentario.likes - 1
+                comentario_estado.estado = False
+            else:
+                comentario.likes = comentario.likes + 1
+                comentario_estado.estado = True
+            comentario.save()
+            comentario_estado.save()
+        except:
+            # si no existe el registro de la tabla intermedia lo creamos y le ponemos el me gusta
+            nuevo_me_gusta = ComentarioGustado(comentario_id=id_comentario, usuario_id=usuario_id, estado=True)
+            comentario.likes = comentario.likes + 1
+            comentario.save()
+            nuevo_me_gusta.save()
         return redirect('hotel_detalle', id_hotel=id_hotel)
     else:
         messages.info(request, "Necesita loguearse para poner me gusta")

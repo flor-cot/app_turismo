@@ -20,6 +20,11 @@ body{
 
 }
 
+.index-random {
+    width: 80vw;
+    margin: auto;
+}
+
 #tarjetas {
     width: 80vw;
     margin: auto;

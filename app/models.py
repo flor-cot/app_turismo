@@ -60,6 +60,9 @@ class Comentario(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.hotel} - Comentario de {self.usuario} - {self.fecha}'
+
 class ComentarioGustado(models.Model):
     comentario = models.ForeignKey(Comentario, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
