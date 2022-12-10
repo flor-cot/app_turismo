@@ -19,6 +19,14 @@ class Migration(migrations.Migration):
             name='hotel',
             options={'verbose_name_plural': 'Hoteles'},
         ),
+        migrations.AlterModelOptions(
+            name='ciudad',
+            options={'verbose_name_plural': 'Ciudades'},
+        ),
+        migrations.AlterModelOptions(
+            name='hotel',
+            options={'verbose_name_plural': 'Hoteles'},
+        ),
         migrations.AddField(
             model_name='ciudad',
             name='url',
@@ -40,5 +48,13 @@ class Migration(migrations.Migration):
                 ('vistas', models.IntegerField(default=0, verbose_name='Vistas')),
                 ('ciudad', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.ciudad')),
             ],
+        ),
+        migrations.RenameModel(
+            old_name='Destino',
+            new_name='Atraccion',
+        ),
+        migrations.AlterModelOptions(
+            name='atraccion',
+            options={'verbose_name_plural': 'Atracciones'},
         ),
     ]

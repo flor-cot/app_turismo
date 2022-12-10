@@ -1,0 +1,62 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+    <section class="section-busqueda">
+        <div class="container-busqueda container">
+            <div class="">
+                <h1 class="display-6">Estos son los Resultados para: {{q}}</h1>            
+                <hr class="my-4">
+            </div> 
+
+            {% if atracciones %}
+                <h3>Atracciones que coinciden con: "{{q}}" </h3>
+                <div class="resultado-items">
+                    {% for atraccion in atracciones %}
+                    <div class="resultado">
+                        <img  src="{{ atraccion.url }}" class="img-resultados"  alt=" {{ atraccion.nombre }} ">
+                        <div class="info-resultados">
+                            <a href="{% url 'undestino' atraccion.id %}"><h4 >{{atraccion.nombre}}</h4></a>
+                            <h5>{{atraccion.ciudad}}</h5>
+                            <p>{{atraccion.puntuacion}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>   
+            {% endif %}
+    
+            {% if hoteles %}
+                <h3> Hoteles que coinciden con: "{{q}}" </h3>
+                <div class="resultado-items">                
+                {% for hotel in hoteles %}
+                <div class="resultado">
+                    <img src="{{ hotel.url }}"class="img-resultados"  alt=" {{ hotel.nombre }}">
+                    <div class="info-resultados">
+                        <a href="{% url 'undestino' hotel.id %}"><h4 >{{hotel.nombre}}</h4></a>
+                        <h5>{{hotel.ciudad}}</h5>
+                        <p>{{hotel.puntuacion}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>   
+        {% endif %}
+            
+            {% if ciudades %}
+                <h3>Ciudades que coinciden con: "{{q}}" </h3>
+                <div class="resultado-items">   
+                {% for ciudad in ciudades %}
+                    <div class="resultado">
+                            <img src="{{ ciudad.url }}" class="img-resultados"  alt=" {{ ciudad.nombre }}">
+                            <div class="info-resultados">
+                                <a href="{% url 'undestino' ciudad.id %}"><h4 >{{ciudad.nombre}}</h4></a>
+                                <h5>{{ciudad.provincia}}</h5>
+                                <p>{{ciudad.puntuacion}}</p>
+                            </div>
+                    </div>
+                {% endfor %}
+                  </div>   
+            {% endif %}                   
+        </div> 
+    </section>
+    
+   
+{% endblock content %}
