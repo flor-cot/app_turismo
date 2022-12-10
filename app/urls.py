@@ -10,5 +10,9 @@ urlpatterns = [
     path('detalle/<int:id_destino>', views.undestino, name="undestino"),
     path('hotel/<int:id_hotel>', views.hotel_detalle, name="hotel_detalle"),
     path('about/', views.about, name="about"),
-    path('busqueda/',views.busqueda, name='busqueda')
+    path('busqueda/',views.busqueda, name='busqueda'),
+    path('comentario/<int:id_hotel>', views.agregar_comentario, name="agregar_comentario"),
+    path('eliminar_comentario/<int:id_comentario>/<int:id_hotel>', views.eliminar_comentario, name="eliminar_comentario"),
+    path('gustar_comentario/<int:id_comentario>/<int:id_hotel>', views.gustar_comentario, name="gustar_comentario"),
+    path('about/', views.about, name="about")
 ]

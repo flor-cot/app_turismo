@@ -3,24 +3,6 @@
 {% block content %}
 <h1>{{ciudad}}</h1>
 <br>
-    {% if atracciones %}
-    <h2>Atracciones</h2>
-    <div class="container">
-      <div class="row">
-        {% for atraccion in atracciones %}
-        <div class="col">
-          <img src="{{ atraccion.url }}" class="card-img-top rounded" alt="...">
-        </div>
-        <div class="col">    
-          <h1 class="display-4">{{atraccion.nombre}}</h1>
-          <hr class="my-4">      
-          <p>{{atraccion.descripcion}}</p>
-        </div>
-        {% endfor %}
-      </div>
-    </div>   <br>
-    {% endif %}
-
     {% if hoteles %}
     <h2>Hoteles</h2>
     <div class="container">
@@ -39,6 +21,24 @@
         {% endfor %}
       </div>
     </div> 
+    {% endif %}
+    
+    {% if atracciones %}
+    <h2>Atracciones</h2>
+    <div class="container">
+      <div class="row">
+        {% for atraccion in atracciones %}
+        <div class="col">
+          <img src="{{ atraccion.url }}" class="card-img-top rounded" alt="...">
+        </div>
+        <div class="col">    
+          <h1 class="display-4">{{atraccion.nombre}}</h1>
+          <hr class="my-4">      
+          <p>{{atraccion.descripcion}}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>   <br>
     {% endif %}
 <br>
 {% endblock content %}

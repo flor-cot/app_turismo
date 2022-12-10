@@ -1,7 +1,7 @@
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from app.models import Provincia, Hotel, Comentario, Atraccion, Ciudad
+from app.models import Provincia, Hotel, Comentario, Atraccion, Ciudad, ComentarioGustado
 from django.template import loader
 from django.contrib.postgres.search import SearchQuery, SearchVector
 
@@ -16,23 +16,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from django.db.models import Q
+from datetime import datetime
+
+import random
 
 
 
 def iniciar_sesion(request):
     
-    #  if(request.method == 'POST'):
-        
-    #     login_form = LoginForm(request.POST)
-    #     if(login_form.is_valid()):
-    #         return HttpResponseRedirect(reverse('index'))
-    #     else:
-    #         messages.warning(request,'Por favor revisa los errores')
-    #  else:
-    #     login_form = LoginForm()
-
-    #  return render(request,'app/login.html',
-    #             {'login_form':login_form})
     if request.user.is_authenticated:
         return redirect('index')    
     else:
@@ -58,35 +49,27 @@ def cerrar_sesion(request):
 
 
 def registro(request):
-    #  if(request.method == 'POST'):
-    #     registro_form = RegistroForm(request.POST)
-    #     if(registro_form.is_valid()):
-    #         messages.success(request,'Muchas gracias por registrarte.')
-    #     else:
-    #         messages.warning(request,'Por favor revisa los errores')
-    #  else:
-    #     registro_form = RegistroForm()
-        if request.user.is_authenticated:
-            return redirect('index')
-        else:  
-            registro_form = RegistroForm()
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:  
+        registro_form = RegistroForm()
 
-            if request.method == 'POST':
-                registro_form = RegistroForm(request.POST)
-                if registro_form.is_valid():
-                    registro_form.save()
-                    usuario = registro_form.cleaned_data.get('username')
-                    messages.success(request,'La cuenta de' + ' ' + usuario + ' ' + 'fue creada con éxito.')
-                    return redirect('login')
+        if request.method == 'POST':
+            registro_form = RegistroForm(request.POST)
+            if registro_form.is_valid():
+                registro_form.save()
+                usuario = registro_form.cleaned_data.get('username')
+                messages.success(request,'La cuenta de' + ' ' + usuario + ' ' + 'fue creada con éxito.')
+                return redirect('login')
 
-            return render(request,'app/registro.html',
-                        {'registro_form':registro_form})
+        return render(request,'app/registro.html',
+                    {'registro_form':registro_form})
 
 def index(request):
-    hoteles = Hotel.objects.order_by('-puntuacion').all()
-    provincias = Provincia.objects.all()
-    
-    contexto = {'hoteles': hoteles , 'provincias': provincias}
+    hoteles_query = Hotel.objects.order_by('-puntuacion').all()
+    hoteles = hoteles_query[:4]
+    hotel_random = random.choice(range(1,len(hoteles_query)+1))
+    contexto = {'hoteles': hoteles, 'hotel_random': Hotel.objects.get(pk=hotel_random)}
     return render(request, 'app/index.html', contexto)
 
 
@@ -108,6 +91,11 @@ def undestino(request,id_destino=""):
     hoteles = Hotel.objects.filter(ciudad=id_destino)
     contexto = {'atracciones': atracciones, 'hoteles': hoteles, 'ciudad': Ciudad.objects.get(pk=id_destino)}
     return render(request, 'app/undestino.html', contexto)
+
+
+##
+##  Detalle de los hoteles y CRUD comentarios
+##
 
 def hotel_detalle(request, id_hotel):
     hotel = Hotel.objects.get(id=id_hotel)
@@ -137,3 +125,51 @@ def busqueda(request):
     # 
     contexto = {'ciudades':ciudades, 'atracciones':atracciones, 'hoteles':hoteles, 'q':q}
     return render(request, 'app/busqueda.html', contexto)
+def agregar_comentario(request, id_hotel):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            comentario = Comentario(mensaje=request.POST.get('comentario_nuevo'),hotel_id=id_hotel,usuario_id=request.user.id, fecha=datetime.now())
+            comentario.save()
+            return redirect('hotel_detalle', id_hotel=id_hotel)
+    else:
+        messages.info(request, "Necesita loguearse para comentar")
+        return redirect('hotel_detalle', id_hotel=id_hotel)
+
+def eliminar_comentario(request, id_comentario, id_hotel):
+    if request.user.is_authenticated:
+        comentario_a_eliminar = Comentario.objects.get(id=id_comentario)
+        comentario_a_eliminar.delete()
+        return redirect('hotel_detalle', id_hotel=id_hotel)
+    else:
+        messages.info(request, "Necesita loguearse para eliminar comentario")
+        return redirect('hotel_detalle', id_hotel=id_hotel)
+
+def gustar_comentario(request, id_comentario, id_hotel):
+    if request.user.is_authenticated:
+        usuario_id = request.user.id
+
+        # traemos el comentario a gustar
+        comentario = Comentario.objects.get(id=id_comentario)
+
+        try:
+            # traemos el registro de la tabla intermedia ComentarioGustado para ese comentario y usuario si existe
+            comentario_estado = ComentarioGustado.objects.get(comentario_id=id_comentario, usuario_id=usuario_id)
+            # Si ya le gustaba le deja de gustar y viceversa
+            if comentario_estado.estado == True:
+                comentario.likes = comentario.likes - 1
+                comentario_estado.estado = False
+            else:
+                comentario.likes = comentario.likes + 1
+                comentario_estado.estado = True
+            comentario.save()
+            comentario_estado.save()
+        except:
+            # si no existe el registro de la tabla intermedia lo creamos y le ponemos el me gusta
+            nuevo_me_gusta = ComentarioGustado(comentario_id=id_comentario, usuario_id=usuario_id, estado=True)
+            comentario.likes = comentario.likes + 1
+            comentario.save()
+            nuevo_me_gusta.save()
+        return redirect('hotel_detalle', id_hotel=id_hotel)
+    else:
+        messages.info(request, "Necesita loguearse para poner me gusta")
+        return redirect('hotel_detalle', id_hotel=id_hotel)
