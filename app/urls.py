@@ -9,5 +9,6 @@ urlpatterns = [
     path('destinos/<int:id_provincia>', views.destinos, name="destinos"),
     path('detalle/<int:id_destino>', views.undestino, name="undestino"),
     path('hotel/<int:id_hotel>', views.hotel_detalle, name="hotel_detalle"),
-    path('about/', views.about, name="about")
+    path('about/', views.about, name="about"),
+    path('busqueda/',views.busqueda, name='busqueda')
 ]

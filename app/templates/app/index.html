@@ -32,20 +32,40 @@
         </button>
     {% endfor %}
   </div> {% endcomment %}
+  <div class="hero-section">
+    <div class="hero-section-text">
+      <h1 class="h1-title">Encuentra tu Próximo Destino</h1>
+    </div>
 
-  <div id="tarjetas" class="tarjetas container">
-      {% for hotel in hoteles %}
-          <div class="card tarjeta_individual" style="width: 18rem;">
-              <a href="{% url 'hotel_detalle' hotel.id %}">  
-                  <img src="{{ hotel.url }}" class="card-img-top fotos" alt="...">
-              </a>
-              <div class="card-body">
-              <h5 class="card-title">{{ hotel.nombre }}</h5>
-              <p class="card-text">Hotel ubicado en {{hotel.ciudad }}, tiene un puntaje de {{ hotel.puntuacion }}</p>
-              <a href="{% url 'hotel_detalle' hotel.id %}" class="btn btn-primary">Visitar el sitio</a>
-              </div>
-          </div>
-      {% endfor %}
+    <form action="{%url 'busqueda' %}" method="get"  class="d-flex" >
+      <div class="wrap">
+       <div class="search">
+         <input type="text" name="q" class="searchTerm" placeholder="Busca ciudades, hoteles o atracciones">
+         <button type="submit" class="searchButton">
+           <i class="fa fa-search"></i>
+         </button>
+       </div>
+     </div>
+    </form>
   </div>
+
+  <div class="container overflow-hidden">
+    <h2 class="txt-center divisor">Los Más Populares</h2>
+    <section class="seccion-destinos container">
+    
+      {% for hotel in hoteles %}
+       <div class="destino-card" style="background-image:url('{{ hotel.url }}')">
+  
+          <h5 class="card-title">{{ hotel.nombre }}</h5>
+          <p>{{ hotel.puntuacion }} &#9733;</p>
+          <p class="card-text ">Ubicación:</br><span class="bold-text">{{hotel.ciudad }}</span></p>
+          <a href="{% url 'hotel_detalle' hotel.id %}" class="btn-circle btn-xl transparent-btn">Conocer</a>
+  
+       </div>
+      {% endfor %}
+  
+    </section>
+  </div>
+
 
 {% endblock content %}
