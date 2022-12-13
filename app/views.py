@@ -85,7 +85,7 @@ def about(request):
     data = {'hoteles':('hola','chau')}
     return render(request, 'app/about.html', data)
 
-@login_required
+@login_required(login_url="/login")
 def undestino(request,id_destino=""):
     atracciones = Atraccion.objects.filter(ciudad=id_destino)
     hoteles = Hotel.objects.filter(ciudad=id_destino)
