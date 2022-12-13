@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.forms import ValidationError
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 import re
 
@@ -105,3 +105,28 @@ class RegistroForm(UserCreationForm):
 #         #     validators=(validar_contrasena,),
 #             widget= forms.PasswordInput(attrs={'class':'form-control','placeholder':'Elija una contraseña'})
 #             )
+
+class EditProfileForm(UserChangeForm): 
+    username = forms.CharField(
+        label=('Nombre de Usuario'),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'readonly':True})
+    )   
+    first_name = forms.CharField(
+        label=('Nombre'),
+        max_length=50,        
+        validators=[solo_caracteres],
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Ingrese su nombre", 'required':True})
+    )
+    last_name = forms.CharField(
+        label=('Apellido'),
+        max_length=50,
+        validators=[solo_caracteres],
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Ingrese su apellido", 'required':True})
+    )
+    email = forms.EmailField(
+        max_length=50, 
+        widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Ingrese su email", 'required':True}))
+    )
+    class Meta:
+        model = User
+        fields = ['username', 'first_name','last_name', 'email'] 
