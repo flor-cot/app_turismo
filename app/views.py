@@ -3,17 +3,15 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from app.models import Provincia, Hotel, Comentario, Atraccion, Ciudad
 from django.template import loader
-
-from app.forms import RegistroForm
+from app.forms import RegistroForm, EditProfileForm
 
 from django.contrib import messages
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.decorators import login_required
-
 
 
 def iniciar_sesion(request):
@@ -53,6 +51,25 @@ def cerrar_sesion(request):
 	logout(request)
 	return redirect('login')
 
+@login_required
+def mi_perfil(request):
+    if request.method == 'POST':
+        edit_form = EditProfileForm(request.POST, instance=request.user)
+        if edit_form.is_valid():
+            edit_form.save()
+            messages.success(request,'Los datos fueron modificados con éxito.')
+            return redirect('miperfil')
+        else:
+            messages.warning(request,'Los datos no pudieron ser modificados.')
+            return redirect('miperfil')
+    else:
+        edit_form = EditProfileForm(instance=request.user)
+        args = {'form': edit_form}
+        return render(request,'app/miperfil.html', args)
+
+@login_required
+def cambiar_password(request):
+    return render(request,'app/nueva_password.html')
 
 def registro(request):
     #  if(request.method == 'POST'):
