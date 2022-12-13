@@ -33,9 +33,9 @@ def validar_nombre_usuario(usuario):
 #    return False
 
 # def validar_mail(mail):
-        if mail_valido(mail):
-                raise ValidationError('El email ingresado no es válido. %(valor)s',
-                            params={'valor':mail})
+#         if mail_valido(mail):
+#                 raise ValidationError('El email ingresado no es válido. %(valor)s',
+#                             params={'valor':mail})
 
 def validar_contrasena(contrasena):
     reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!#_%*?&]{6,20}$"
@@ -51,44 +51,13 @@ def validar_contrasena(contrasena):
                             )
 
 
-# class RegistroForm(forms.Form):
-#     nombre = forms.CharField(
-#             label='Nombre',
-#             validators=(solo_caracteres,),
-#             widget= forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese su nombre'})
-#             )
-#     apellido = forms.CharField(
-#             label='Apellido',
-#             validators=(solo_caracteres,),
-#             widget= forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese su apellido'})
-#             )
-#     email = forms.EmailField(
-#             label='Email',
-#             max_length=50,
-#             validators=(validar_mail,),
-#             error_messages={
-#                     'required': 'Por favor ingrese un correo electrónico',                    
-#                 },
-#             widget= forms.TextInput(attrs={'class':'form-control','type':'email','placeholder':'Ingrese su correro electrónico'})
-#             )
-#     usuario = forms.CharField(
-#             label='Usuario',
-#             required=False,
-#             validators=(solo_caracteres,),
-#             widget= forms.TextInput(attrs={'class':'form-control','placeholder':'Elija un nombre de usuario'})
-#             )
-#     contraseña = forms.CharField(
-#             validators=(validar_contrasena,),
-#             widget= forms.PasswordInput(attrs={'class':'form-control','placeholder':'Elija una contraseña'})
-#             )
-
 class RegistroForm(UserCreationForm):
         username = forms.CharField(
             label=('Nombre de Usuario'),
             max_length=50,
             help_text=('Requerido!'),
              validators=[validar_nombre_usuario],
-            error_messages={'unique': ("Ya existe!")},
+            error_messages={'unique': ("Ya existe!"),'required':("El campo no puede estar vacío.")},
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
         first_name = forms.CharField(
@@ -96,6 +65,7 @@ class RegistroForm(UserCreationForm):
             max_length=50,
             help_text=('Requerido!'),
             validators=[solo_caracteres],
+            error_messages={'required':("El campo no puede estar vacío.")},
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
         last_name = forms.CharField(
@@ -103,16 +73,20 @@ class RegistroForm(UserCreationForm):
             max_length=50,
             help_text=('Requerido!'),
             validators=[solo_caracteres],
+            error_messages={'required':("El campo no puede estar vacío.")},
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
-        email = forms.EmailField(max_length=50, help_text='Requerido! Inform a valid email address.',
+        email = forms.EmailField(max_length=50, help_text='Requerido!',
+            error_messages={'required':("El campo no puede estar vacío.")},
             widget=(forms.TextInput(attrs={'class': 'form-control'})))
         password1 = forms.CharField(
             label=('Contraseña'),
             validators=[validar_contrasena],
+            error_messages={'required':("El campo no puede estar vacío.")},
             widget=(forms.PasswordInput(attrs={'class': 'form-control'}))
             )
-        password2 = forms.CharField(label=('Ingrese de nuevo la contraseña'), 
+        password2 = forms.CharField(label=('Ingrese de nuevo la contraseña'),
+            error_messages={'required':("El campo no puede estar vacío.")}, 
             widget=forms.PasswordInput(attrs={'class': 'form-control'}),
             help_text=('Misma contraseña!'))
         class Meta:
