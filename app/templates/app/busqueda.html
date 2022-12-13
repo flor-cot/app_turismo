@@ -15,7 +15,7 @@
                     <div class="resultado">
                         <img  src="{{ atraccion.url }}" class="img-resultados"  alt=" {{ atraccion.nombre }} ">
                         <div class="info-resultados">
-                            <a href="{% url 'undestino' atraccion.id %}"><h4 >{{atraccion.nombre}}</h4></a>
+                            <a href="{% url 'atraccion' atraccion.id %}"><h4 >{{atraccion.nombre}}</h4></a>
                             <h5>{{atraccion.ciudad}}</h5>
                             <p>{{atraccion.puntuacion}}</p>
                         </div>
@@ -31,14 +31,14 @@
                 <div class="resultado">
                     <img src="{{ hotel.url }}"class="img-resultados"  alt=" {{ hotel.nombre }}">
                     <div class="info-resultados">
-                        <a href="{% url 'undestino' hotel.id %}"><h4 >{{hotel.nombre}}</h4></a>
+                        <a href="{% url 'hotel_detalle' hotel.id %}"><h4 >{{hotel.nombre}}</h4></a>
                         <h5>{{hotel.ciudad}}</h5>
                         <p>{{hotel.puntuacion}}</p>
                     </div>
                 </div>
                 {% endfor %}
             </div>   
-        {% endif %}
+           {% endif %}
             
             {% if ciudades %}
                 <h3>Ciudades que coinciden con: "{{q}}" </h3>
