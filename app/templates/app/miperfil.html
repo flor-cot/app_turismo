@@ -2,19 +2,23 @@
 
 {% block content %}
 <div class="container">
-  <h1>Mi perfil</h1>
-  {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}" role="alert">
-            {{ message }}
+  <div class="row gx-5 justify-content-center">
+    <h1 class="centrado py-5">Mi perfil</h1>
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="max-width:400px;text-align:center" role="alert">
+              {{ message }}
+        </div>
+    {% endfor %}
+    <div class="d-flex justify-content-center form_container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p}}    
+            
+            <button type="submit" class="btn-circle-dark btn-xl">Actualizar</button>
+            <br><br>
+        </form>
       </div>
-  {% endfor %}
-  <form method="POST">
-      {% csrf_token %}
-      {{ form.as_p}}    
-      
-      <button type="submit" class="btn btn-primary">Actualizar</button>
-      <br><br>
-  </form>
+    </div>
 </div>
 
 {% endblock content %}

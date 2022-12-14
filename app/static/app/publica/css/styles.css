@@ -478,16 +478,21 @@ body{
 .centrado{
   display: grid;
   place-content: center;
-  text-align: center;
 }
 .centrado > h2{
   font-size: 3rem;
   font-weight: 1000;
 }
-.centrado Z h3{
-  padding: 1rem 3rem 1rem 3rem;
+.centrado > h3{
+  margin-top: 2rem;
 }
-
+.subrayado {
+  text-decoration: underline;
+}
+.img-borde {
+  outline: solid rgb(255, 255, 255) 2px;
+  outline-offset: -15px;
+}
 
 /*estilos Mobile*/
 
