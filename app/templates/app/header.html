@@ -1,6 +1,6 @@
 {% load app_template_tags %}
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #366198;">
-    <div class="container-fluid">
+    <div class="container">
       <a class="navbar-brand" href="{% url 'index' %}"><img width="100px" src="../static/app/publica/img/logo.png" alt="visita argentina"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -22,12 +22,29 @@
             </ul> {% endcomment %}
           </li>
           {% if user.is_authenticated %}
+          <!--
           <li class="nav-item">
             <a class="nav-link" href=""> Hola {{ user.username }} </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'miperfil' %}">Mi Perfil</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
           </li>
+          -->
+
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Hola {{ user.username }}
+          </a>
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="{% url 'miperfil' %}">Mi Perfil</a></li>
+          <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+          </ul>
+        </div>
+
         {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'login' %}">Ingresa</a>
@@ -44,8 +61,7 @@
         {% comment %} <span  style="color:white;margin-right:10px">Hola {{request.user}} </span>
         <span ><a  style="color:white;margin-right:10px"  href="{% url 'logout' %}">Cerrar Sesión</a></span> {% endcomment %}
 
-        <form action="{%url 'busqueda' %}" method="get"  class="d-flex" >
-          
+        <form action="{%url 'busqueda' %}" method="get"  class="d-flex" >          
           <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-circle round-btn btn-xl" type="submit">&#8594;</button>
         </form>

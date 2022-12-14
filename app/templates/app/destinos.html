@@ -1,23 +1,20 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">Estos son los destinos de {{provincia}}</h1>            
-            <hr class="my-4">
-            <h5>Elige el destino que mas te guste.</h5>  
-        </div>                           
-    </div> 
-    <br>    
-    <div id="tarjetas">
-        {% for ciudad in ciudades %}
-            <div class="card tarjeta_individual" style="width: 18rem;">
-                <img src="{{ ciudad.url }}" class="card-img-top fotos rounded" style="filter: brightness(50%);" alt="...">
-                <div style="position:absolute; top:50%; left: 50%; transform: translate(-50%, -50%); color: white">
-                    <a href="{% url 'undestino' ciudad.id %}" class="btn btn-outline-light">{{ciudad.nombre}}</a>
-                </div>
+     
+    <div class="container overflow-hidden" style="padding: 2rem 0 2rem 0">
+        <h1 class="txt-center divisor">Estos son los destinos de {{provincia}}</h1>
+        <section class="seccion-destinos container">
+            {% for ciudad in ciudades %}
+            <div class="destino-card" style="background-image:url('{{ ciudad.url }}')">
+
+            <h5 class="card-title">{{ ciudad.nombre }}</h5>
+            <p class="card-text ">Ubicación:</br><span class="bold-text">{{ciudad.provincia }}</span></p>
+            <a href="{% url 'undestino' ciudad.id %}" class="btn-circle btn-xl transparent-btn">Conocer</a>
+
             </div>
         {% endfor %}
-    </div>   
-    <br>    
+        </section>
+    </div>
+
 {% endblock content %}

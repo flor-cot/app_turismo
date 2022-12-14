@@ -67,3 +67,18 @@ class ComentarioGustado(models.Model):
     comentario = models.ForeignKey(Comentario, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     estado = models.BooleanField(default=False)
+
+class ComentarioAtraccion(models.Model):
+    mensaje = models.TextField(null=True, verbose_name='mensaje')
+    likes = models.IntegerField(default=0,verbose_name='Comentario Likes')
+    fecha = models.DateField(auto_now_add=True, verbose_name='Fecha')
+    atraccion = models.ForeignKey(Atraccion, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.atraccion} - Comentario de {self.usuario} - {self.fecha}'
+
+class ComentarioGustadoAtraccion(models.Model):
+    comentario = models.ForeignKey(ComentarioAtraccion, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    estado = models.BooleanField(default=False)

@@ -1,3 +1,4 @@
+{% load app_template_tags %}
   <!-- footer -->
   <footer class="site-footer">
     <div class="container">
@@ -8,16 +9,24 @@
         </div>
 
         <div class="col-xs-6 col-md-3">
-          <h6>Destinos</h6>
-          <ul class="footer-links">
-            <li><a href="#">C</a></li> 
+          <h6>Busca por provincia</h6>
+          <ul class="" style="color:white">
+            {% get_provincias_list %}
           </ul>
         </div>
 
         <div class="col-xs-6 col-md-3">
           <h6>Links</h6>
           <ul class="footer-links">
-            <li><a href="#">Mi cuenta</a></li>
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'miperfil' %}">Mi cuenta</a></li>
+
+            {% else %}
+            <li><a href="{% url 'registro' %}">Registrate</a></li>
+            <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+
+            {% endif %}
 
           </ul>
         </div>

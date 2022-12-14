@@ -1,29 +1,30 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h1>{{ciudad}}</h1>
-<br>
-    {% if hoteles %}
-    <h2>Hoteles</h2>
-    <div class="container">
-      <div class="row">
-        {% for hotel in hoteles %}
-          <div class="col">
-            <a href="{% url 'hotel_detalle' hotel.id %}">
-            <img src="{{ hotel.url }}" class="card-img-top rounded" alt="...">
-          </a>
-          </div>
-          <div class="col">    
-            <h1 class="display-4">{{hotel.nombre}}</h1>
-            <hr class="my-4">      
-            <p>{{hotel.descripcion}}</p>
-          </div>
-        {% endfor %}
-      </div>
-    </div> 
-    {% endif %}
-    
-    {% if atracciones %}
+<div class="titulo-destino">
+  <h1>{{ciudad}}</h1>
+</div>
+
+<section class="section-busqueda" style="background-color:white">
+  <div class="container-busqueda container">
+
+{% if hoteles %}
+<h3> Hoteles ubicados en {{ ciudad }} </h3>
+<div class="resultado-items">                
+{% for hotel in hoteles %}
+<div class="resultado">
+    <img src="{{ hotel.url }}"class="img-resultados"  alt=" {{ hotel.nombre }}">
+    <div class="info-resultados">
+        <a href="{% url 'hotel_detalle' hotel.id %}"><h4 >{{hotel.nombre}}</h4></a>
+        <h5>{{hotel.descripcion}}</h5>
+        <p>{{hotel.puntuacion}}</p>
+    </div>
+</div>
+{% endfor %}
+</div>   
+{% endif %}
+
+     {% if atracciones %}
     <h2>Atracciones</h2>
     <div class="container">
       <div class="row">
@@ -39,6 +40,23 @@
         {% endfor %}
       </div>
     </div>   <br>
+    {% endif %}
+
+
+    {% if atracciones %}
+        <h3> Atracciones ubicadas en {{ ciudad }} </h3>
+        <div class="resultado-items">                
+        {% for atraccion in atracciones %}
+        <div class="resultado">
+            <img src="{{ atraccion.url }}"class="img-resultados"  alt=" {{ atraccion.nombre }}">
+            <div class="info-resultados">
+                <a href="{% url 'hotel_detalle' hotel.id %}"><h4 >{{hotel.nombre}}</h4></a>
+                <h5>{{hotel.descripcion}}</h5>
+                <p>{{hotel.puntuacion}}</p>
+            </div>
+        </div>
+        {% endfor %}
+        </div>   
     {% endif %}
 <br>
 {% endblock content %}

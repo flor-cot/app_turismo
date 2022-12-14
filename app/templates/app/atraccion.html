@@ -1,23 +1,23 @@
 {% extends 'app/base.html' %}
-{% block title %}Hotel {{hotel.nombre}}{% endblock title %}
+{% block title %} Atracción {{atraccion.nombre}}{% endblock title %}
 
 {% block content %}
 
-<div class="titulo-hotel" style="background-image:url({{ hotel.url }})">
-    <h1>{{ hotel.nombre }}</h1>
+<div class="titulo-hotel" style="background-image:url({{ atraccion.url }})">
+    <h1>{{ atraccion.nombre }}</h1>
 </div>
 
 <main>
 <div class="container p-5">
     <div class="row">
-        <div class="col-md-6">
-            <img src="{{ hotel.url }}" class="card-img-top fotos img-borde" alt="...">
+        <div class="col-md-7">
+            <img src="{{ atraccion.url }}" class="card-img-top fotos img-borde" alt="...">
         </div> 
-        <div class="col-md-6 centrado">
-            <h2>{{ hotel.nombre }}</h2> 
-            <h5 class="subrayado"> {{ hotel.ciudad }} </h5>  
-            <h3>Puntuación: <span style="font-weight:800;color:#366198"> {{ hotel.puntuacion }} </span> </h3>         
-            <h3 class="">{{ hotel.descripcion }}</h3>
+        <div class="col-md-5 centrado">
+            <h2>{{ atraccion.nombre }}</h2>
+            <h5 class="subrayado"> {{ atraccion.ciudad }} </h5>    
+            <h3>Puntuación: <span style="font-weight:800;color:#366198"> {{ atraccion.puntuacion }} </span> </h3>       
+            <h3 style>{{ atraccion.descripcion }}</h3>
         </div>          
     </div>
 </div>
@@ -35,9 +35,9 @@
                         <p class="card-text col-4">{{ comentario.fecha }}</p>
                         <p class="card-text col-1">{{ comentario.likes }}</p>
                         {% if user.username == comentario.usuario.username %}
-                            <a href="{% url 'eliminar_comentario' comentario.id hotel.id %}" title="Eliminar" class="btn btn-danger col-1"><i class="fa-sharp fa-solid fa-trash"></i></a>
+                            <a href="{% url 'eliminar_comentario_atraccion' comentario.id atraccion.id %}" title="Eliminar" class="btn btn-danger col-1"><i class="fa-sharp fa-solid fa-trash"></i></a>
                         {% else %}
-                            <a href="{% url 'gustar_comentario' comentario.id hotel.id %}" title="me_gusta" class="btn col-1"><i class="fa fa-sharp fa-solid fa-heart"></i></a>
+                            <a href="{% url 'gustar_comentario_atraccion' comentario.id atraccion.id %}" title="me_gusta" class="btn col-1"><i class="fa fa-sharp fa-solid fa-heart"></i></a>
                         {% endif %}
                     </div>
                     <div class="row">
@@ -57,7 +57,7 @@
                             </div>
                             {% endfor %}
                         {% endif %}
-                        <form action="{% url 'agregar_comentario' hotel.id %}" method="post">
+                        <form action="{% url 'agregar_comentario_atraccion' atraccion.id %}" method="post">
                             {% csrf_token %}
                             <div class="card-body">
                                 <textarea name="comentario_nuevo" class="form-control mb-3" id="exampleFormControlTextarea1" rows="3"
