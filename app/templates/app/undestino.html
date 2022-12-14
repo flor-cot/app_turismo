@@ -24,7 +24,7 @@
 </div>   
 {% endif %}
 
-     {% if atracciones %}
+    {% comment %} {% if atracciones %}
     <h2>Atracciones</h2>
     <div class="container">
       <div class="row">
@@ -40,7 +40,7 @@
         {% endfor %}
       </div>
     </div>   <br>
-    {% endif %}
+    {% endif %}  {% endcomment %}
 
 
     {% if atracciones %}
@@ -50,9 +50,9 @@
         <div class="resultado">
             <img src="{{ atraccion.url }}"class="img-resultados"  alt=" {{ atraccion.nombre }}">
             <div class="info-resultados">
-                <a href="{% url 'hotel_detalle' hotel.id %}"><h4 >{{hotel.nombre}}</h4></a>
-                <h5>{{hotel.descripcion}}</h5>
-                <p>{{hotel.puntuacion}}</p>
+                <a href="{% url 'atraccion' atraccion.id %}"><h4 >{{atraccion.nombre}}</h4></a>
+                <h5>{{atraccion.descripcion}}</h5>
+                <p>{{atraccion.puntuacion}}</p>
             </div>
         </div>
         {% endfor %}
